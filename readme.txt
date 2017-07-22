@@ -55,4 +55,4 @@ If you still doesn't have a clue what is that about is because the wordpress dat
 == ChangeLog ==
 
 = 1.0 =
-Initial release
+* Initial release

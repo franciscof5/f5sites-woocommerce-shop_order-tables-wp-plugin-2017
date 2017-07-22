@@ -1,13 +1,13 @@
 <?php
 /**
  Plugin Name: F5 Sites | Woocommerce shop_order Tables
- Plugin URI: https://www.f5sites.com/woocommerce-shop_order-tables
+ Plugin URI: https://www.f5sites.com/software/wordpress/f5sites-woocommerce-shop_order-tables/
  Description: Hack plugin to make WordPress painless synching server instances database (aka: dev and production). Neither wordpress or woocommerce are made to operate in that specific way, all hack solution has it`s own problems, that is why it is a hack plugin. You don't need to be experto to use, but it was cleary made for advanced/expert developers, so be carefull to don't mess you site database, risk of data lost. It is just a fork version of Post Type Tables pre configured for woocommerce shop_order. Based on original plugin F5 Sites | Shared WordPress Posts and Taxonomies Tables + Upload Folder.
  Version: 1.0
  Tags: post_type, data management, sync, woocommerce, wpmu, database admin
  Author: Francisco Matelli Matulovic
  Author URI: https://www.franciscomat.com/woocommerce-order-database
- License: GPLv2 or later
+ License: GPLv3
 
  */
 
@@ -17,7 +17,7 @@ Woocommerce shop_order Tables is free software: you can redistribute it and/or m
 Woocommerce shop_order Tables is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
  
 You should have received a copy of the GNU General Public License
-along with https://www.f5sites.com/woocommerce-shop_order-tables. If not, see https://www.f5sites.com/woocommerce-shop_order-tables.
+along with https://www.f5sites.com/software/wordpress/f5sites-woocommerce-shop_order-tables/. If not, see https://www.f5sites.com/software/wordpress/f5sites-woocommerce-shop_order-tables/.
 */
 if(!is_network_admin()) {
 	//
