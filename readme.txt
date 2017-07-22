@@ -1,5 +1,5 @@
 === F5 Sites | WooCommerce shop_order Tables ===
-Contributors: franciscof5
+Contributors: f5sites, franciscof5
 Tags: post_type, data management, sync, woocommerce, wpmu, database 
 Requires at least: 3.2
 Tested up to: 4.7.2
@@ -21,13 +21,18 @@ Based on original plugin F5 Sites | Shared WordPress Posts and Taxonomies Tables
 
 [F5 Sites | WooCommerce shop_order Tables](https://www.f5sites.com/software/wordpress/f5sites-woocommerce-shop_order-tables/)
 
- == Installation ==
+== Installation ==
 
 = From your WordPress dashboard =
 
 1. Visit 'Plugins > Add New'
 2. Search for 'F5 Sites | WooCommerce shop_order Tables'
 3. Activate it from your Plugins page.
+
+== Screenshots ==
+
+1. Overview of new tables schema via phpMyAdmin
+
 
 == Frequently Asked Questions ==
 
