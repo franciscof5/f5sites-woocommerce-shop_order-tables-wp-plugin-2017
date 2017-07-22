@@ -7,6 +7,7 @@ Stable tag: 1.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Donate link: http://www.f5sites.com/donate/
+
 Hack plugin to make WordPress painless synching server instances database (aka: dev and production)
 
 == Description ==
@@ -15,7 +16,7 @@ Hack plugin to make WordPress painless synching server instances database (aka: 
 
 You don't need to be experto to use, but it was cleary made for advanced/expert developers, so be carefull to don't mess you site database, risk of data lost. It is just a fork version of Post Type Tables pre configured for woocommerce shop_order. 
 
-Based on original plugin F5 Sites | Shared WordPress Posts and Taxonomies Tables + Upload Folder
+Based on original plugin F5 Sites | Shared Posts and Upload Folder
 
 [F5 Sites | WordPress Dev](https://www.f5sites.com/software/wordpress/)
 
