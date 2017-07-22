@@ -16,7 +16,7 @@ Hack plugin to make WordPress painless synching server instances database (aka: 
 
 You don't need to be experto to use, but it was cleary made for advanced/expert developers, so be carefull to don't mess you site database, risk of data lost. It is just a fork version of Post Type Tables pre configured for woocommerce shop_order. 
 
-Compared to other plugins like WP STAGECOACH, DB-MIGRATEPRO, and all others I tested, or simple plugin solution, additional to F5 Sites | WordPress MySQL Manager (wpsql) will make you think we came from another galaxy, it is far from superior, it is a killer solution that put all alternatives in my pocket, and it is GNU licensed and you don't need to pay for any service, why will you try something else?
+Compared to other plugins like WP STAGECOACH, WP-MIGRATEDB-PRO, and all others I tested, or simple plugin solution, additional to F5 Sites | WordPress MySQL Manager (wpsql) will make you think we came from another galaxy, it is far from superior, it is a killer solution that put all alternatives in my pocket, and it is GNU licensed and you don't need to pay for any service, why will you try something else?
 
 Based on original plugin F5 Sites | Shared Posts and Upload Folder
 
