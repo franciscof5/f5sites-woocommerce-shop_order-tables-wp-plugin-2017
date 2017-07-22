@@ -6,13 +6,20 @@ Tested up to: 4.7.2
 Stable tag: 1.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
-
+Donate link: http://www.f5sites.com/donate/
 Hack plugin to make WordPress painless synching server instances database (aka: dev and production)
 
 == Description ==
 
-Hack plugin to make WordPress painless synching server instances database (aka: dev and production). Neither wordpress or woocommerce are made to operate in that specific way, all hack solution has it`s own problems, that is why it is a hack plugin. You don't need to be experto to use, but it was cleary made for advanced/expert developers, so be carefull to don't mess you site database, risk of data lost. It is just a fork version of Post Type Tables pre configured for woocommerce shop_order. Based on original plugin F5 Sites | Shared WordPress Posts and Taxonomies Tables + Upload Folder.
- Version: 1.0
+Hack plugin to make WordPress painless synching server instances database (aka: dev and production). Neither wordpress or woocommerce are made to operate in that specific way, all hack solution has it`s own problems, that is why it is a hack plugin.
+
+You don't need to be experto to use, but it was cleary made for advanced/expert developers, so be carefull to don't mess you site database, risk of data lost. It is just a fork version of Post Type Tables pre configured for woocommerce shop_order. 
+
+Based on original plugin F5 Sites | Shared WordPress Posts and Taxonomies Tables + Upload Folder
+
+[F5 Sites | WordPress Dev](https://www.f5sites.com/software/wordpress/)
+
+[F5 Sites | WooCommerce shop_order Tables](https://www.f5sites.com/software/wordpress/f5sites-woocommerce-shop_order-tables/)
 
  == Installation ==
 
@@ -40,7 +47,7 @@ That can happen, it was made to reduce time in 2 ways:
 
 If you still doesn't have a clue what is that about is because the wordpress data management is very trick.
 
-== Upgrade Notice ==
+== ChangeLog ==
 
 = 1.0 =
 Initial release
