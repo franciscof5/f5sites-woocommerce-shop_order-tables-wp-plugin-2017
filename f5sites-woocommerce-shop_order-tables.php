@@ -14,9 +14,12 @@
 if(!is_network_admin()) {
 	//check if type
 	add_action( 'pre_get_posts', 'force_database_post_type_creation', 10, 2 );//FOR BLOG 
+	#add_action( 'edit_post', 'force_database_post_type_creation', 10, 2 );//FOR BLOG 
 	//
 	#add_action( 'init', 'force_database_post_type_creation', 10, 2 );//FOR BLOG 
+	#woocommerce_before_template_part
 	
+	##add_action('parse_site_query', 'force_new_names', 10, 2);
 	//	
 	add_action('before_woocommerce_init', 'force_database_post_type_creation', 10, 2);
 	//TO INSERT IT ON THE TABLE
@@ -39,23 +42,32 @@ function force_database_post_type_creation($query) {
 	global $wpdb;
 	global $wp_the_query;
 	#var_dump($wp_the_query);
-	if($wp_the_query!=NULL && $query==NULL)
-		$query = $wp_the_query;
+	#if($wp_the_query->query["pagename"])
+	#	return;
+	#var_dump();
+	#if($wp_the_query!=NULL && $query==NULL)
+	#	$query = $wp_the_query;
 
-	$types_new_table = array("shop_order", "shop_order_refund", "customize_changeset");
+	$types_new_table = array("shop_order", "shop_order_refund", "customize_changeset", "subscription");
 		
+	#$types_new_table = array("shop_order");
+
 	if(isset($query->query["post_type"])) 
 		$type = $query->query["post_type"];
 	else
 		$type="notknow";#(post or page problably, but maybe menu)
 	//
-	//
-	
-		
+	if($type=="page")
+		return;
+	//HACK FOR VIEW ORDER
+	#if($type=="notknow" && $wp_the_query->queried_object->post_content=="[woocommerce_my_account]")
+	#	force_new_names();
+
+	//else {}
 	if(is_array($type)) {
 		foreach ($type as $t) {
 			if(in_array($t, $types_new_table)) {
-				#echo $t;die;
+				#echo $t;
 				force_new_names();
 			}
 			# code...
@@ -64,6 +76,7 @@ function force_database_post_type_creation($query) {
 		#$type = $type[0];
 		
 	} else {
+		#echo $type;
 		if(in_array($type, $types_new_table)) {
 		#echo $wpdb->prefix.$type."_posts111";
 		/**/
