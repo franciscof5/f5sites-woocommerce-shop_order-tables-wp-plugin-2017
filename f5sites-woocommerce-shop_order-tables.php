@@ -159,7 +159,7 @@ function force_database_shop_order_separated_tables($query) {
 	global $wp_the_query;
 
 	if($debug)
-	echo " force_database_shop_order_separated_tables(); ";
+	echo " force_database_shop_order_separated_tables(); ............................................................................................ /n/n";
 
 	if(!function_exists("force_database_aditional_tables_share")) {
  		if($debug)
