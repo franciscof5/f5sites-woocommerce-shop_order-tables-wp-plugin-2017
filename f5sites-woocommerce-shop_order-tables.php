@@ -10,6 +10,7 @@
  License: GPLv3
 
  */
+#global $debug;$debug = true;
 
 #if(!is_network_admin() and !(function_exists("force_database_aditional_tables_share"))) {
 
@@ -19,7 +20,9 @@ if(!is_network_admin()) {
 		add_action("get_orders_F5SITES_inserted_hook", "force_new_names_AKA", 10, 2);
 		add_action("order_received_F5SITES_inserted_hook", "force_new_names_AKA", 10, 2);
 	}
-	add_action('woocommerce_after_checkout_validation', 'force_new_names', 10, 2);#OBRIGATORIO HORTICAL
+	#woocommerce_after_checkout_validation
+	#woocommerce_checkout_update_order_review
+	add_action('woocommerce_after_checkout_validation', 'revert_database_schema_after_get_order', 10, 2);#OBRIGATORIO HORTICAL
 	add_action( 'pre_get_posts', 'force_database_shop_order_separated_tables', 10, 2 );
 
 	#force_new_names();
@@ -73,6 +76,17 @@ if(!is_network_admin()) {
 	#}
 	#add_action( 'switch_blog', 'force_database_shop_order_separated_tables', 10, 2 );	
 	#add_action('woocommerce_new_order', 'force_new_names');
+}
+
+add_action( 'template_redirect', 'custom_template_redirect' );
+
+function custom_template_redirect() {
+
+    if( is_shop() ) :
+
+         // code logic here
+
+    endif;    
 }
 
 #global $debug;$debug = true;
@@ -142,9 +156,9 @@ function force_new_names() {
 		#YOU CAN CHOOSE WHEREVER NAME YOU WANT, but create it before use
 		#todo: create automatic post table
 		if($debug)
-			echo " table 9woo_".$wpdb->prefix."shop_order_posts";
-		$wpdb->posts 				= "9woo_".$wpdb->prefix."shop_order_posts";
-		$wpdb->postmeta 			= "9woo_".$wpdb->prefix."shop_order_postmeta";
+			echo " table 6woo_".$wpdb->prefix."shop_order_posts";
+		$wpdb->posts 				= "6woo_".$wpdb->prefix."shop_order_posts";
+		$wpdb->postmeta 			= "6woo_".$wpdb->prefix."shop_order_postmeta";
 	#}*/
 }
 
@@ -174,17 +188,55 @@ function force_database_shop_order_separated_tables($query) {
  		#die;
  	}
 	#
+	#if($debug)
+	#var_dump(is_wc_endpoint_url( 'order-received' ));
+	
+	#
+
+	#$isreceived = is_wc_endpoint_url( 'order-received' );
+	if (strpos($_SERVER['REQUEST_URI'],'order-received') !== false) {
+	    $isreceived = true;
+	}
+	
 	if($debug)
-	echo " is_order_received_page(): ".is_order_received_page();
+	echo " is_order_received_page(): ".$isreceived;
 	#
 	
 	#global $type;
-	if(is_order_received_page()) {
+	if($isreceived) {
+		$url = 'https://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+		$url_correct = substr(wc_get_page_permalink( 'checkout' ),0,-1).$_SERVER['REQUEST_URI'];
+		#$url;
+		#echo " I:".strpos($url_correct, $url);
+		#die;
+		#if (strpos(wc_get_page_permalink( 'checkout' ),$url)) {
+		if (strpos($url_correct, $url)) {
+		    echo 'PAGINA CRTA';
+		} else {
+			#echo 'PAGINA RRRADA';
+			if(is_404()) {
+				#echo "is_404";
+				if (!defined('DOING_AJAX') && DOING_AJAX)
+				echo "<script>parent.self.location='".$url_correct."';</script>";//enter location..example www.google.com, or profile.php etc
+				#echo $url_correct;
+				#wp_redirect($url_correct);
+				#exit();	
+			}
+			
+		}
+		#die;
+		#var_dump($_SERVER['REQUEST_URI']);die;
+		#var_dump(wc_get_page_permalink( 'checkout' ));die;
+		#wp_redirect(wc_get_page_permalink( 'checkout' ).$_SERVER['REQUEST_URI']);
 		if($debug)
 		echo " vi que estou na pagina de ver ordem, porem nao eh o momento de trocar de tabela... ";
+
 		#force_new_names();
+		#revert_database_schema_after_get_order();
 		#return;
+		#revert_database_schema_after_get_order();
 	}
+
 	#var_dump($wp_the_query);
 	#var_dump($query->query["post_type"]);
 	#if($wp_the_query->query["pagename"])
@@ -198,12 +250,12 @@ function force_database_shop_order_separated_tables($query) {
 	
 
 	#$types_new_table = array("shop_order");
-	if($debug)
-	echo " EU fui chamado para type: $type, ";
+	
 	#if($debug)
 	#var_dump($query);
 	
 		#IF TYPE IS NOT PASSED AS GLOBAL VAR
+	if(isset($query->query["post_type"])) {
 		if(($query->query["post_type"])) {
 			$type = $query->query["post_type"];
 			if($debug)
@@ -226,66 +278,75 @@ function force_database_shop_order_separated_tables($query) {
 				}
 			}
 		}
+		#if($debug)
+		#echo " EU fui chamado para type: $type, ";
 		//
 		#if($type=="page")
 		#	return;
+	} else {
+		if($debug)
+		echo " NAO TEM tipo retornar ";
+		#revert_database_schema_after_get_order();
+		return;
+	}
 	
-	
-
 	//HACK FOR VIEW ORDER
 	#if($type=="notknow" && $wp_the_query->queried_object->post_content=="[woocommerce_my_account]")
 	#	force_new_names();
 
 	//else {}
 	#echo "GET: ".$_GET['post_type']." <br>";
-	if($debug)
-	echo " EU fui chamado para type: $type, ";
-	if(is_array($type)) {
-		foreach ($type as $t) {
-			if(in_array($t, $types_new_table)) {
-				if($debug)
-				echo $t;
-				force_new_names();
+	if(isset($type)) {
+		if(is_array($type)) {
+			foreach ($type as $t) {
+				if(in_array($t, $types_new_table)) {
+					if($debug)
+					echo $t;
+					force_new_names();
+				}
+				# code...
 			}
-			# code...
-		}
-		#var_dump($type);die;
-		#$type = $type[0];
-		
-	} else {
-		#echo $type;
-		if(in_array($type, $types_new_table)) {
-		#echo $wpdb->prefix.$type."_posts111";
-			if($debug)
-			echo " esta no YIPO ";
-		/**/
-			force_new_names();
-		#echo $wpdb->prefix."shop_order_posts222";
-		#foreach ($types_new_table as $type) {
-			#if(in_array($type, $types_new_table)) {
-				
-			#}
-		} else {
-			if($type=="page" OR $type=="nav_menu_item" OR $type=="attachment") {
-				if($debug)
-				echo "REVERTI PARA PADRAO";
-				revert_database_schema_after_get_order();
-			} else {
-				if($debug)
-				echo " POREM nada fiz... ";
-			}
-
-			#	echo "REVERTI PARA PADRAO";
-			#revert_database_schema_after_get_order();
+			#var_dump($type);die;
+			#$type = $type[0];
 			
-		}
-		/*foreach ($types_new_table as $type) {
+		} else {
+			#echo $type;
+			if($debug)
+			echo " EU fui chamado para type: $type, ";
 			if(in_array($type, $types_new_table)) {
-				$wpdb->posts 				= $wpdb->prefix.$type."_posts";
-				$wpdb->postmeta 			= $wpdb->prefix.$type."_postmeta";
+			#echo $wpdb->prefix.$type."_posts111";
+				if($debug)
+				echo " esta no YIPO ";
+			/**/
+				force_new_names();
+			#echo $wpdb->prefix."shop_order_posts222";
+			#foreach ($types_new_table as $type) {
+				#if(in_array($type, $types_new_table)) {
+					
+				#}
+			} else {
+				#if($type=="page" OR $type=="nav_menu_item" OR $type=="attachment") {
+					if($debug)
+					echo "REVERTI PARA PADRAO";
+					#revert_database_schema_after_get_order();
+				#} else {
+				#	if($debug)
+				#	echo " POREM nada fiz... ";
+				#}
+
+				#	echo "REVERTI PARA PADRAO";
+				#revert_database_schema_after_get_order();
+				
 			}
-		}*/
+			/*foreach ($types_new_table as $type) {
+				if(in_array($type, $types_new_table)) {
+					$wpdb->posts 				= $wpdb->prefix.$type."_posts";
+					$wpdb->postmeta 			= $wpdb->prefix.$type."_postmeta";
+				}
+			}*/
+		}
 	}
+	
 }
 
 ?>
