@@ -194,24 +194,38 @@ function force_database_shop_order_separated_tables($query) {
 	#
 
 	#$isreceived = is_wc_endpoint_url( 'order-received' );
-	if (strpos($_SERVER['REQUEST_URI'],'order-received') !== false) {
-	    $isreceived = true;
-	}
+	$url = 'https://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+	$pos_on_url = strpos($url,'order-received');
+	#if ($pos_on_url !== false) {
+	#    $isreceived = true;
+	#} else {
+	#	$isreceived = false;
+	#}
 	
 	if($debug)
-	echo " is_order_received_page(): ".$isreceived;
+	echo " is_order_received_page(): ".$pos_on_url;
 	#
 	
 	#global $type;
-	if($isreceived) {
-		$url = 'https://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-		$url_correct = substr(wc_get_page_permalink( 'checkout' ),0,-1).$_SERVER['REQUEST_URI'];
-		#$url;
+	if($pos_on_url) {
+		
+		#https://www.f5sites.com/plugins-br/woocommerce/checkout/order-received/4/?key=wc_order_5adba095996e
+		#https://br.f5sites.com/plugins-br/woocommerce/checkout/order-received/21/?key=wc_order_5adba2d1abcc3
+		#https://www.f5sites.com/plugins-br/woocommerce/checkout/order-received/5/?key=wc_order_5adba34d80f0
+		#https://br.f5sites.com/plugins-br/woocommerce/checkout/order-received/22/?key=wc_order_5adba39927a9
+
+		$url_no_order_received = substr($url, 0, $pos_on_url);
+		$order_received = substr($url, $pos_on_url, strlen($url));
+		$url_correct = substr(wc_get_page_permalink( 'checkout' ),0,-1)."/".$order_received;
+		#echo "CHK:".wc_get_page_permalink( 'checkout' );
+		#echo "URL:".$url_no_order_received;
+		#echo "URLCO:".$url_correct;
 		#echo " I:".strpos($url_correct, $url);
 		#die;
 		#if (strpos(wc_get_page_permalink( 'checkout' ),$url)) {
-		if (strpos($url_correct, $url)) {
-		    echo 'PAGINA CRTA';
+		#if (strpos($url_correct, $url)) {
+		if ($url_correct==$url) {
+		    #echo 'PAGINA CRTA';
 		} else {
 			#echo 'PAGINA RRRADA';
 			if(is_404()) {
