@@ -22,7 +22,7 @@ if(!is_network_admin()) {
 	}
 	#woocommerce_after_checkout_validation
 	#woocommerce_checkout_update_order_review
-	add_action('woocommerce_after_checkout_validation', 'revert_database_schema_after_get_order', 10, 2);#OBRIGATORIO HORTICAL
+	#add_action('woocommerce_after_checkout_validation', 'revert_database_schema_after_get_order', 10, 2);#OBRIGATORIO HORTICAL
 	add_action( 'pre_get_posts', 'force_database_shop_order_separated_tables', 10, 2 );
 
 	#force_new_names();
