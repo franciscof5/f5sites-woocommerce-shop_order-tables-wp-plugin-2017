@@ -19,10 +19,18 @@ if(!is_network_admin()) {
 		#Gracefull integration, it need manual update on WOO core
 		add_action("get_orders_F5SITES_inserted_hook", "force_new_names_AKA", 10, 2);
 		add_action("order_received_F5SITES_inserted_hook", "force_new_names_AKA", 10, 2);
+		###
+		add_action("woocommerce_before_checkout_process", "force_new_names_AKA", 10, 2);
+		
 	}
 	#woocommerce_after_checkout_validation
 	#woocommerce_checkout_update_order_review
+	
 	#add_action('woocommerce_after_checkout_validation', 'revert_database_schema_after_get_order', 10, 2);#OBRIGATORIO HORTICAL
+
+	#add_action('woocommerce_checkout_order_processed', 'revert_database_schema_after_get_order', 10, 2);#OBRIGATORIO HORTICAL
+		
+
 	add_action( 'pre_get_posts', 'force_database_shop_order_separated_tables', 10, 2 );
 
 	#force_new_names();
