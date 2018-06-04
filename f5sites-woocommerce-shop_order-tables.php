@@ -352,6 +352,7 @@ function force_database_shop_order_separated_tables($query) {
 					echo "REVERTI PARA PADRAO";
 					
 					if($type=="course" || $type=="lesson") {
+						if($debug)
 						echo " TIPO is course OR lesson FORCEI REVERT";
 						revert_database_schema_after_get_order();
 					}
