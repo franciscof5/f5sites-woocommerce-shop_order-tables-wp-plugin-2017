@@ -350,7 +350,11 @@ function force_database_shop_order_separated_tables($query) {
 				#if($type=="page" OR $type=="nav_menu_item" OR $type=="attachment") {
 					if($debug)
 					echo "REVERTI PARA PADRAO";
-					#revert_database_schema_after_get_order();
+					
+					if($type=="course" || $type=="lesson") {
+						echo " TIPO is course OR lesson FORCEI REVERT";
+						revert_database_schema_after_get_order();
+					}
 				#} else {
 				#	if($debug)
 				#	echo " POREM nada fiz... ";
