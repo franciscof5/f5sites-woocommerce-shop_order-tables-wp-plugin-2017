@@ -18,6 +18,10 @@ You don"t need to be experto to use, but it was cleary made for advanced/expert 
 
 Compared to other plugins like WP STAGECOACH, WP-MIGRATEDB-PRO, and all others I tested, or simple plugin solution, additional to F5 Sites | WordPress MySQL Manager (wpsql) will make you think we came from another galaxy, it is far from superior, it is a killer solution that put all alternatives in my pocket, and it is GNU licensed and you don"t need to pay for any service, why will you try something else?
 
+Tested with:
+* WooCommerce
+* Sensei
+
 Based on original plugin F5 Sites | Shared Posts and Upload Folder
 
 [F5 Sites | WordPress Dev](https://www.f5sites.com/software/wordpress/)
