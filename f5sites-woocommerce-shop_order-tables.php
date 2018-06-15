@@ -21,6 +21,7 @@ if(!is_network_admin()) {
 		add_action("order_received_F5SITES_inserted_hook", "force_new_names_AKA", 10, 2);
 		###
 		add_action("woocommerce_before_checkout_process", "force_new_names_AKA", 10, 2);
+		add_action("wc_frontend_scripts", "revert_database_schema_after_get_order", 5, 2);
 		
 	}
 	#woocommerce_after_checkout_validation
