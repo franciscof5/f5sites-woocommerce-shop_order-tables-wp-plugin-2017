@@ -17,7 +17,7 @@
 if(!is_network_admin()) {
 	{
 		#Gracefull integration, it need manual update on WOO core
-		add_action("get_orders_F5SITES_inserted_hook", "force_new_names_AKA", 10, 2);
+		add_action("get_orders_F5SITES_inserted_hook", "force_new_names_AKA", 10, 2);//for users on front-end
 		add_action("order_received_F5SITES_inserted_hook", "force_new_names_AKA", 10, 2);
 		###
 		add_action("woocommerce_before_checkout_process", "force_new_names_AKA", 10, 2);
@@ -98,8 +98,6 @@ function custom_template_redirect() {
     endif;    
 }
 
-#global $debug;$debug = true;
-
 function revert_database_schema_after_get_order() {
 	global $debug;
 	if($debug)
@@ -164,10 +162,14 @@ function force_new_names() {
 	#} else {
 		#YOU CAN CHOOSE WHEREVER NAME YOU WANT, but create it before use
 		#todo: create automatic post table
+		#var_dump($wpdb);die;
 		if($debug)
 			echo " table 6woo_".$wpdb->prefix."shop_order_posts";
-		$wpdb->posts 				= "6woo_".$wpdb->prefix."shop_order_posts";
-		$wpdb->postmeta 			= "6woo_".$wpdb->prefix."shop_order_postmeta";
+		if($wpdb->posts!="6woo_".$wpdb->prefix."shop_order_posts") {
+			$wpdb->posts 				= "6woo_".$wpdb->prefix."shop_order_posts";
+			$wpdb->postmeta 			= "6woo_".$wpdb->prefix."shop_order_postmeta";	
+		}
+		
 	#}*/
 }
 
@@ -204,6 +206,10 @@ function force_database_shop_order_separated_tables($query) {
 
 	#$isreceived = is_wc_endpoint_url( 'order-received' );
 	$url = 'https://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+
+	#$is_customize = strpos($url,'customize');
+	#if($is_customize)return;
+	#if(isset($_GET["return"]))return;
 	$pos_on_url = strpos($url,'order-received');
 	#if ($pos_on_url !== false) {
 	#    $isreceived = true;
@@ -320,6 +326,7 @@ function force_database_shop_order_separated_tables($query) {
 	//else {}
 	#echo "GET: ".$_GET['post_type']." <br>";
 	if(isset($type)) {
+		if($type=="customize_changeset")return;#br.franciscomat.com
 		if(is_array($type)) {
 			foreach ($type as $t) {
 				if(in_array($t, $types_new_table)) {
