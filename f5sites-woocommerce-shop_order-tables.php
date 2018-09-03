@@ -87,7 +87,7 @@ if(!is_network_admin()) {
 	#add_action('woocommerce_new_order', 'force_new_names');
 }
 
-add_action( 'template_redirect', 'custom_template_redirect' );
+/*add_action( 'template_redirect', 'custom_template_redirect' );
 
 function custom_template_redirect() {
 
@@ -96,7 +96,7 @@ function custom_template_redirect() {
          // code logic here
 
     endif;    
-}
+}*/
 
 function revert_database_schema_after_get_order() {
 	global $debug;
