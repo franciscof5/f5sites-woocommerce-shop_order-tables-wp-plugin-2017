@@ -383,6 +383,3 @@ function force_database_shop_order_separated_tables($query) {
 	}
 	
 }
-
-?>
-
