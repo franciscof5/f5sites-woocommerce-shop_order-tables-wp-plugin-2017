@@ -183,8 +183,10 @@ function force_database_shop_order_separated_tables($query) {
 	global $wpdb;
 	global $wp_the_query;
 
-	if($debug)
-	echo " force_database_shop_order_separated_tables(); ............................................................................................ /n/n";
+	if($debug) {
+		echo " force_database_shop_order_separated_tables(); <br>";
+
+	}
 
 	if(!function_exists("force_database_aditional_tables_share")) {
  		if($debug)
@@ -195,7 +197,7 @@ function force_database_shop_order_separated_tables($query) {
 		#add_action( 'pre_get_posts', 'revert_database_schema_after_get_order', 10, 2 );//FOR BLOG 
  	} else {
  		if($debug)
- 		echo " ESTA NUM SITE COM F5SITES SHARED POSTS ATIVADO";
+ 		echo " ESTA NUM SITE COM F5SITES SHARED POSTS ATIVADO ";
  		#die;
  	}
 	#
@@ -328,6 +330,12 @@ function force_database_shop_order_separated_tables($query) {
 	if(isset($type)) {
 		if($type=="customize_changeset")return;#br.franciscomat.com
 		if(is_array($type)) {
+
+			if($debug)
+				echo " is array ";
+				#var_dump($type);
+			return;
+
 			foreach ($type as $t) {
 				if(in_array($t, $types_new_table)) {
 					if($debug)
